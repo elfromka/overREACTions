@@ -24,27 +24,30 @@ export default function CurrencyChanger() {
         fromAmount = (amount / exchangeRate).toFixed(2);
     }
 
+    const dataService = {
+        loadData: fetch(API_BASE_URL).then(res => res.json())
+    };
+
     // load data from API
     useEffect(() => {
-        fetch(API_BASE_URL)
-            .then(res => res.json())
-            .then(data => {
-                const currencyOptions = [data.base, ...Object.keys(data.rates)];
-                const secondCurrencySelect = setToCurrency(
-                    Object.keys(data.rates)[8]
-                ); // get RON currency as second selected currency for the convert process
-                // console.log(secondCurrencySelect);
-                const fromCurrencies = currencyOptions.filter(function(value) {
-                    return value !== secondCurrencySelect;
-                });
-                const toCurrencies = currencyOptions.filter(function(value) {
-                    return value !== data.base;
-                });
-                setCurrencyOptionsNoFrom(fromCurrencies);
-                setCurrencyOptionsNoTo(toCurrencies);
-                setFromCurrency(data.base); // first, base currency returned from the API
-                setExchangeRate(data.rates[secondCurrencySelect]);
-            });
+        dataService.loadData().then(response => {
+            console.log(response);
+            // const currencyOptions = [data.base, ...Object.keys(data.rates)];
+            // const secondCurrencySelect = setToCurrency(
+            //     Object.keys(data.rates)[8]
+            // ); // get RON currency as second selected currency for the convert process
+            // // console.log(secondCurrencySelect);
+            // const fromCurrencies = currencyOptions.filter(function(value) {
+            //     return value !== secondCurrencySelect;
+            // });
+            // const toCurrencies = currencyOptions.filter(function(value) {
+            //     return value !== data.base;
+            // });
+            // setCurrencyOptionsNoFrom(fromCurrencies);
+            // setCurrencyOptionsNoTo(toCurrencies);
+            // setFromCurrency(data.base); // first, base currency returned from the API
+            // setExchangeRate(data.rates[secondCurrencySelect]);
+        });
     }, []);
 
     // change on input
