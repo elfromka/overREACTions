@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "../assets/money.png";
 import Select from "./Select";
 import Input from "./Input";
-
-const API_BASE_URL = "https://api.exchangeratesapi.io/latest";
+import { loadData, loadSelectedData } from "../agent";
 
 export default function CurrencyChanger() {
     const [currencyOptionsNoFrom, setCurrencyOptionsNoFrom] = useState([]);
@@ -24,38 +23,33 @@ export default function CurrencyChanger() {
         fromAmount = (amount / exchangeRate).toFixed(2);
     }
 
-    const dataService = {
-        loadData: fetch(API_BASE_URL).then(res => res.json())
-    };
-
     // load data from API
     useEffect(() => {
-        dataService.loadData().then(response => {
-            console.log(response);
-            // const currencyOptions = [data.base, ...Object.keys(data.rates)];
-            // const secondCurrencySelect = setToCurrency(
-            //     Object.keys(data.rates)[8]
-            // ); // get RON currency as second selected currency for the convert process
-            // // console.log(secondCurrencySelect);
-            // const fromCurrencies = currencyOptions.filter(function(value) {
-            //     return value !== secondCurrencySelect;
-            // });
-            // const toCurrencies = currencyOptions.filter(function(value) {
-            //     return value !== data.base;
-            // });
-            // setCurrencyOptionsNoFrom(fromCurrencies);
-            // setCurrencyOptionsNoTo(toCurrencies);
-            // setFromCurrency(data.base); // first, base currency returned from the API
-            // setExchangeRate(data.rates[secondCurrencySelect]);
+        loadData().then(data => {
+            const currencyOptions = [data.base, ...Object.keys(data.rates)];
+            const secondCurrencySelect = setToCurrency(
+                Object.keys(data.rates)[8]
+            ); // get RON currency as second selected currency for the convert process
+            // console.log(secondCurrencySelect);
+            const fromCurrencies = currencyOptions.filter(function(value) {
+                return value !== secondCurrencySelect;
+            });
+            const toCurrencies = currencyOptions.filter(function(value) {
+                return value !== data.base;
+            });
+            setCurrencyOptionsNoFrom(fromCurrencies);
+            setCurrencyOptionsNoTo(toCurrencies);
+            setFromCurrency(data.base); // first, base currency returned from the API
+            setExchangeRate(data.rates[secondCurrencySelect]);
         });
     }, []);
 
     // change on input
     useEffect(() => {
         if (fromCurrency != null && toCurrency != null) {
-            fetch(`${API_BASE_URL}?base=${fromCurrency}&symbols=${toCurrency}`)
-                .then(res => res.json())
-                .then(data => setExchangeRate(data.rates[toCurrency]));
+            loadSelectedData(fromCurrency, toCurrency).then(data =>
+                setExchangeRate(data.rates[toCurrency])
+            );
         }
     }, [fromCurrency, toCurrency]);
 
