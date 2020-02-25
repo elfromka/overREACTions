@@ -98,7 +98,6 @@ export default function CurrencyChanger() {
                         className="btn tooltip"
                         id="swap"
                         onClick={handleSwap}
-                        title={`Click to swap between ${fromCurrency} and ${toCurrency}`}
                     >
                         Swap
                         <Tooltip
