@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import logo from "../assets/money.png";
 import Select from "./Select";
 import Input from "./Input";
+import Tooltip from "./Tooltip";
 import { loadData, loadSelectedData } from "../agent";
 
 export default function CurrencyChanger() {
@@ -27,20 +28,21 @@ export default function CurrencyChanger() {
     useEffect(() => {
         loadData().then(data => {
             const currencyOptions = [data.base, ...Object.keys(data.rates)];
-            const secondCurrencySelect = setToCurrency(
-                Object.keys(data.rates)[8]
-            ); // get RON currency as second selected currency for the convert process
-            // console.log(secondCurrencySelect);
+
             const fromCurrencies = currencyOptions.filter(function(value) {
-                return value !== secondCurrencySelect;
+                return value !== Object.keys(data.rates)[8];
             });
+
             const toCurrencies = currencyOptions.filter(function(value) {
                 return value !== data.base;
             });
+
+            setFromCurrency(data.base); // first, base currency returned from the API
+            setToCurrency(Object.keys(data.rates)[8]); // get RON currency as second selected currency for the convert process
             setCurrencyOptionsNoFrom(fromCurrencies);
             setCurrencyOptionsNoTo(toCurrencies);
-            setFromCurrency(data.base); // first, base currency returned from the API
-            setExchangeRate(data.rates[secondCurrencySelect]);
+
+            setExchangeRate(data.rates[Object.keys(data.rates)[8]]);
         });
     }, []);
 
@@ -61,6 +63,13 @@ export default function CurrencyChanger() {
     function handleToAmountChange(e) {
         setAmount(e.target.value);
         setAmountInFromCurrency(false);
+    }
+
+    function handleSwap(e) {
+        e.preventDefault();
+
+        setFromCurrency(toCurrency);
+        setToCurrency(fromCurrency);
     }
 
     return (
@@ -85,9 +94,20 @@ export default function CurrencyChanger() {
                 </div>
 
                 <div className="swap-rate-container">
-                    <button className="btn" id="swap">
+                    <button
+                        className="btn tooltip"
+                        id="swap"
+                        onClick={handleSwap}
+                        title={`Click to swap between ${fromCurrency} and ${toCurrency}`}
+                    >
                         Swap
+                        <Tooltip
+                            message={`Click to swap between ${fromCurrency} and ${toCurrency}`}
+                        >
+                            tooltip
+                        </Tooltip>
                     </button>
+
                     <div className="rate" id="rate">
                         1 {fromCurrency} = {exchangeRate} {toCurrency}
                     </div>
