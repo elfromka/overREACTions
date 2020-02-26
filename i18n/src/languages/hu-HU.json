@@ -1,0 +1,5 @@
+{
+    "app.header": "Módosítsd a <code>{fileName}</code>-t, majd mentsd el az újbóli betöltéséhez.",
+    "app.content": "Tanulj React-et",
+    "app.dev.community": "Lépj be a {devCommunity} React közösségébe"
+}

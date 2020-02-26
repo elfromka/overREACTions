@@ -1,0 +1,5 @@
+{
+    "app.header": "Modifică fișierul de <code>{fileName}</code> și salvează-l pentru reîncărcarea paginii.",
+    "app.content": "Învață React",
+    "app.dev.community": "Intră în comunitatea de React pe {devCommunity}"
+}
