@@ -28,21 +28,15 @@ export default function CurrencyChanger() {
     useEffect(() => {
         loadData().then(data => {
             const currencyOptions = [data.base, ...Object.keys(data.rates)];
-
-            const fromCurrencies = currencyOptions.filter(function(value) {
-                return value !== Object.keys(data.rates)[8];
-            });
-
-            const toCurrencies = currencyOptions.filter(function(value) {
-                return value !== data.base;
-            });
+            const ronIdx = Object.keys(data.rates).findIndex(c => c === "RON"); // retrieve the index of RON currency
 
             setFromCurrency(data.base); // first, base currency returned from the API
-            setToCurrency(Object.keys(data.rates)[8]); // get RON currency as second selected currency for the convert process
-            setCurrencyOptionsNoFrom(fromCurrencies);
-            setCurrencyOptionsNoTo(toCurrencies);
+            setToCurrency(Object.keys(data.rates)[ronIdx]); // get RON currency as second selected currency for the convert process
 
-            setExchangeRate(data.rates[Object.keys(data.rates)[8]]);
+            setCurrencyOptionsNoFrom(currencyOptions);
+            setCurrencyOptionsNoTo(currencyOptions);
+
+            setExchangeRate(data.rates[Object.keys(data.rates)[ronIdx]]);
         });
     }, []);
 
@@ -85,6 +79,7 @@ export default function CurrencyChanger() {
                     <Select
                         currencyOptions={currencyOptionsNoFrom}
                         selectedCurrency={fromCurrency}
+                        disabledCurrency={toCurrency}
                         onChangeCurrency={e => setFromCurrency(e.target.value)}
                     />
                     <Input
@@ -116,6 +111,7 @@ export default function CurrencyChanger() {
                     <Select
                         currencyOptions={currencyOptionsNoTo}
                         selectedCurrency={toCurrency}
+                        disabledCurrency={fromCurrency}
                         onChangeCurrency={e => setToCurrency(e.target.value)}
                     />
                     <Input
