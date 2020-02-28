@@ -8,7 +8,7 @@ export default function CountryFlag(props) {
             <img
                 src={`../images/country_flags/${localeLanguage}.png`}
                 alt={`${localeLanguage} language icon`}
-                lang={localeLanguage}
+                data-lang={localeLanguage}
                 className={`language-icon zoom ${isActive ? "active" : ""}`}
                 onClick={onClick}
             />
