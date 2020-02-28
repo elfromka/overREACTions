@@ -1,14 +1,15 @@
 import React from "react";
 
 export default function CountryFlag(props) {
-    const { localeLanguage, onClick } = props;
+    const { localeLanguage, onClick, isActive } = props;
 
     return (
         <span className="py-10">
             <img
                 src={`../images/country_flags/${localeLanguage}.png`}
-                alt="Language"
-                className="hoverZoom"
+                alt={`${localeLanguage} language icon`}
+                lang={localeLanguage}
+                className={`language-icon zoom ${isActive ? "active" : ""}`}
                 onClick={onClick}
             />
         </span>

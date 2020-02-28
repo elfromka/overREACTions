@@ -1,36 +1,29 @@
 import React, { useContext } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-// import CountryFlag from "./components/CountryFlag";
+import CountryFlag from "./components/CountryFlag";
 import { FormattedMessage, FormattedDate } from "react-intl";
 import { Context } from "./components/Wrapper";
 
 function App(props) {
     const context = useContext(Context);
-    // const allLanguages = ["en-US", "hu-HU", "ro-RO"];
+    const allLanguages = ["en-US", "hu-HU", "ro-RO"];
 
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                {/* <span>
+                <span className="lang-holder">
                     {allLanguages.map(option => (
                         <CountryFlag
                             localeLanguage={option}
                             key={option}
-                            value={context.locale}
+                            selectedLang={option}
                             onClick={context.selectLanguage}
+                            isActive={context.locale === option}
                         />
                     ))}
-                </span> */}
-                <select
-                    value={context.locale}
-                    onChange={context.selectLanguage}
-                >
-                    <option value="en-US">English</option>
-                    <option value="hu-HU">Magyar</option>
-                    <option value="ro-RO">Română</option>
-                </select>
+                </span>
                 <p>
                     <FormattedMessage
                         id="app.header"

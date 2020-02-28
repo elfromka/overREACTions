@@ -21,7 +21,7 @@ export default function Wrapper(props) {
     const [messages, setMessages] = useState(language);
 
     function selectLanguage(e) {
-        const newLocale = e.target.value;
+        const newLocale = e.target.lang;
         setLocale(newLocale);
         if (newLocale === "hu-HU") {
             setMessages(Hungarian);

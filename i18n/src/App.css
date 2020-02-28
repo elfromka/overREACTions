@@ -55,13 +55,26 @@ code {
     padding: 0 10px;
 }
 
-.hoverZoom {
-    cursor: pointer;
+.lang-holder {
+    display: flex;
+    align-items: center;
+}
+
+.language-icon {
     width: 30px;
     height: 30px;
+    cursor: pointer;
+}
+
+.language-icon.active {
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.zoom {
     transition: transform 0.5s;
 }
 
-.hoverZoom:hover {
+.zoom:hover {
     transform: scale(1.5);
 }
