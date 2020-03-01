@@ -1,29 +1,44 @@
-import React from "react";
-import "./reset.min.css";
-import addIcon from "./resources/icons/addIcon.svg";
+import React, { Component } from "react";
+import todosData from "./todosData";
+import TodoItem from "./components/TodoItem";
 import "./App.css";
+export default class App extends Component {
+    constructor() {
+        super();
+        this.state = {
+            todos: todosData
+        };
+        this.handleChange = this.handleChange.bind(this);
+    }
 
-function App() {
-    return (
-        <div className="App">
-            <header>
-                <input
-                    type="text"
-                    placeholder="Enter an activity.."
-                    id="item"
-                />
-                <button id="add">
-                    <img alt="addIcon" className="add-icon" src={addIcon} />
-                </button>
-            </header>
+    handleChange(id) {
+        this.setState(prevState => {
+            const updatedTodos = prevState.todos.map(todo => {
+                if (todo.id === id) {
+                    return {
+                        ...todo,
+                        completed: !todo.completed
+                    };
+                }
+                return todo;
+            });
+            return {
+                todos: updatedTodos
+            };
+        });
+    }
 
-            <div className="container-app">
-                <ul className="todo" id="todo"></ul>
-
-                <ul className="todo" id="completed"></ul>
+    render() {
+        return (
+            <div className="todo-list">
+                {this.state.todos.map(todo => (
+                    <TodoItem
+                        key={todo.id}
+                        todoInfo={todo}
+                        handleChange={this.handleChange}
+                    />
+                ))}
             </div>
-        </div>
-    );
+        );
+    }
 }
-
-export default App;
