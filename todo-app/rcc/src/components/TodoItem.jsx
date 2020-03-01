@@ -6,6 +6,11 @@ export default function TodoItem(props) {
         handleChange
     } = props;
 
+    const completedStyle = {
+        color: "grey",
+        textDecoration: "line-through"
+    };
+
     return (
         <div className="todo-item">
             <input
@@ -14,7 +19,9 @@ export default function TodoItem(props) {
                 checked={completed}
                 onChange={() => handleChange(id)}
             />
-            <label htmlFor={id}>{text}</label>
+            <label htmlFor={id} style={completed ? completedStyle : null}>
+                {text}
+            </label>
             <br />
         </div>
     );
