@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Input from "./Input";
 
 export default function MemeGenerator() {
     const [topText, setTopText] = useState("");
@@ -37,20 +38,18 @@ export default function MemeGenerator() {
     return (
         <div>
             <form className="meme-form">
-                <input
-                    type="text"
+                <Input
                     value={topText}
                     name="topText"
                     placeholder="Top text"
-                    onChange={handleChange}
+                    handleChange={handleChange}
                 />
                 <br />
-                <input
-                    type="text"
+                <Input
                     value={bottomText}
                     name="bottomText"
                     placeholder="Bottom text"
-                    onChange={handleChange}
+                    handleChange={handleChange}
                 />
                 <button onClick={handleGenerate}>Generate</button>
             </form>
