@@ -26,6 +26,14 @@ export default function MemeGenerator() {
             : setBottomText(e.target.value);
     };
 
+    const handleGenerate = e => {
+        e.preventDefault();
+        const randomMeme =
+            allMemeImages[Math.floor(Math.random() * allMemeImages.length)];
+        const { url: newMeme } = randomMeme;
+        setRandomImage(newMeme);
+    };
+
     return (
         <div>
             <form className="meme-form">
@@ -44,12 +52,13 @@ export default function MemeGenerator() {
                     placeholder="Bottom text"
                     onChange={handleChange}
                 />
-                <button>Generate</button>
+                <button onClick={handleGenerate}>Generate</button>
             </form>
-            <br />
-            <h1>
-                {topText} {bottomText}
-            </h1>
+            <div className="meme">
+                <img src={randomImage} alt="" />
+                <h2 className="top">{topText}</h2>
+                <h2 className="bottom">{bottomText}</h2>
+            </div>
         </div>
     );
 }
