@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from "react";
 import Dropzone from "./components/Dropzone";
+import ImageList from "./components/ImageList";
 import cuid from "cuid";
 
 import "./App.css";
@@ -21,12 +22,11 @@ function App() {
         });
     }, []);
 
-    console.log(images);
-
     return (
         <div className="App">
             <h1 className="text-center">Image upload with Drag and Drop</h1>
             <Dropzone onDrop={onDrop} accept={"image/*"} />
+            <ImageList images={images} />
         </div>
     );
 }
