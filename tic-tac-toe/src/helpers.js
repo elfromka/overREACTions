@@ -22,6 +22,3 @@ function calculateWinner(squares) {
     }
     return null;
 }
-
-const testSquares = [null, null, null, "X", "X", "X", null, null, null];
-console.log(calculateWinner(testSquares));
