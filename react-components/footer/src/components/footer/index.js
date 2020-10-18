@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Wrapper, Row, Column, Link, Title } from './styles/footer';
 
-export default function Footer({childrean, ...restProps}) {
+export default function Footer({children, ...restProps}) {
     return <Container {...restProps}>{children}</Container>
 }
 
