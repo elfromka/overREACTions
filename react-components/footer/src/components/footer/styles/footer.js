@@ -26,7 +26,7 @@ export const Row = styled.div`
     grid-gap: 20px;
 `
 
-export const Link = styled.div`
+export const Link = styled.a`
     color: #fff;
     margin-bottom: 20px;
     font-size: 18px;
@@ -35,11 +35,10 @@ export const Link = styled.div`
     &:hover {
         color: #ff9c00;
         transition: 200ms ease-in;
-        cursor: pointer;
     }
 `
 
-export const Title = styled.div`
+export const Title = styled.p`
     font-size: 24px;
     color: #fff;
     margin-bottom: 40px;

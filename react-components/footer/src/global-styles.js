@@ -8,5 +8,6 @@ export const GlobalStyles = createGlobalStyle`
         position: relative;
         top: 300px;
         background: #ff9c00;
+        font-family: 'Nunito', sans-serif;
     }
 `
